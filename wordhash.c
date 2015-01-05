@@ -55,13 +55,16 @@ struct WordNode* createNode(char word[]) {
 }
 
 void insertWord(struct WordNode** head, struct WordNode* newNode) {
+    struct WordNode nodep;
+    if (*head == NULL) {
+        newNode->next = *head;
+    }
+}
+
+void printList(struct WordNode* head) {
 
 }
 
-void printList(WordNode* head) {
-
-}
-
-void deleteList(WordNode* head) {
+void deleteList(struct WordNode* head) {
 
 }

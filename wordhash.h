@@ -23,8 +23,8 @@ struct WordNode* createNode(char word[]);
 
 void insertWord(struct WordNode** head, struct WordNode* newNode);
 
-void printList(WordNode* head);
+void printList(struct WordNode* head);
 
-void deleteList(WordNode* head);
+void deleteList(struct WordNode* head);
 
 #endif // WORDHASH_H

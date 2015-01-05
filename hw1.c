@@ -5,17 +5,19 @@
 
 #define DICTIONARY_FILE "./words"
 
-struct WordNode* hashWords(WordNode wordData[LENGTH_HASH][MAX_HASH_NUM]);
+void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
 int main(int argc, char const *argv[]) {
-    WordNode wordData[LENGTH_HASH][MAX_HASH_NUM];
-    int i, j;
-
+    WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM] = {{NULL}};
     hashWords(wordData);
+    printf("%d\n", strcmp("A", "B"));
+    int i, j;
 
     // for (i = 0; i < (LENGTH_HASH); i++) {
     //     for (j = 0; j < MAX_HASH_NUM; j++) {
-    //         printf("%d %d %s %s\n", i, j, wordData[i][j].combination, wordData[i][j].word);
+    //         printf("%d %d %s %s\n", i, j,
+    //                wordData[i][j].combination,
+    //                wordData[i][j].word);
     //     }
     // }
 
@@ -42,7 +44,7 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
-struct WordNode* hashWords(WordNode wordData[LENGTH_HASH][MAX_HASH_NUM]) {
+void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
     // Open File
     char fmode[] = "r";
     FILE* dictFile = fopen(DICTIONARY_FILE, fmode);
@@ -55,12 +57,10 @@ struct WordNode* hashWords(WordNode wordData[LENGTH_HASH][MAX_HASH_NUM]) {
     int len,
         hash;
     char word[MAX_WORD_LEN];
-    WordNode* newNode;
     while(fgets(word, sizeof(word), dictFile) != NULL) {
         len = hashLength(word);
         hash = genWordHash(word);
-        createNode(word);
-        // strcpy(wordData[len][hash].word, word);
+        WordNode* newNode = createNode(word);
     }
     fclose(dictFile);
 }
