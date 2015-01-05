@@ -6,15 +6,10 @@
 #define LENGTH_HASH 8
 #define MIN_WORD_LEN 2
 
-typedef struct combination_node {
-    char combination[MAX_WORD_LEN];
-    struct combination_node* next;
-} combination_node;
-
-typedef struct permutation_node {
-    combination_node* combination_head;
-    struct permutation_node* next;
-} permutation_node;
+typedef struct WordNode {
+    char word[MAX_WORD_LEN];
+    struct WordNode* next;
+} WordNode;
 
 void toUpper(char* word);
 
@@ -23,5 +18,13 @@ int hashLength(char* word);
 int genWordHash(char* word);
 
 void sortString(char* word, char* sorted);
+
+struct WordNode* createNode(char word[]);
+
+void insertWord(struct WordNode** head, struct WordNode* newNode);
+
+void printList(WordNode* head);
+
+void deleteList(WordNode* head);
 
 #endif // WORDHASH_H

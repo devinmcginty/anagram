@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "./wordhash.h"
 
 void toUpper(char* word) {
@@ -44,4 +45,23 @@ void sortString(char* word, char* sorted) {
     }
     rstring[position] = '\0';   // Terminating string
     strcpy(sorted, rstring);
+}
+
+struct WordNode* createNode(char word[]) {
+    WordNode* newNode = (struct WordNode*) malloc(sizeof(struct WordNode));
+    strcpy(newNode->word, word);
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertWord(struct WordNode** head, struct WordNode* newNode) {
+
+}
+
+void printList(WordNode* head) {
+
+}
+
+void deleteList(WordNode* head) {
+
 }
