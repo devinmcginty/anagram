@@ -63,6 +63,7 @@ void insertWord(struct WordNode** head, struct WordNode* newNode) {
         struct WordNode* current = *head;
         while (strcmp(current->next->word, newNode->word) < 0 &&
                current->next != NULL) {
+            // printf("Scanning %s\n", current->word);
             current = current->next;
         }
         newNode->next = current->next;
@@ -71,15 +72,23 @@ void insertWord(struct WordNode** head, struct WordNode* newNode) {
 }
 
 void printList(struct WordNode* head) {
-
+    struct WordNode* current;
+    current = head;
+    while (current != NULL) {
+        printf("%s\n", current->word);
+        current = current->next;
+    }
+    // printf("Leaving printList\n");
 }
 
 void deleteList(struct WordNode* head) {
     struct WordNode* tempNode;
     while (tempNode != NULL) {
         tempNode = head->next;
+        // printf("Freeing %s\n", head->word);
         free(head);
         head = tempNode;
     }
     free(tempNode);
+    // printf("Freeing %s\n", head->word);
 }
