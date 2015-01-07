@@ -55,9 +55,18 @@ struct WordNode* createNode(char word[]) {
 }
 
 void insertWord(struct WordNode** head, struct WordNode* newNode) {
-    struct WordNode nodep;
     if (*head == NULL) {
         newNode->next = *head;
+        *head = newNode;
+    }
+    else {
+        struct WordNode* current = *head;
+        while (strcmp(current->next->word, newNode->word) < 0 &&
+               current->next != NULL) {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
     }
 }
 
@@ -66,5 +75,11 @@ void printList(struct WordNode* head) {
 }
 
 void deleteList(struct WordNode* head) {
-
+    struct WordNode* tempNode;
+    while (tempNode != NULL) {
+        tempNode = head->next;
+        free(head);
+        head = tempNode;
+    }
+    free(tempNode);
 }

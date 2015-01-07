@@ -10,7 +10,6 @@ void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 int main(int argc, char const *argv[]) {
     WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM] = {{NULL}};
     hashWords(wordData);
-    printf("%d\n", strcmp("A", "B"));
     int i, j;
 
     // for (i = 0; i < (LENGTH_HASH); i++) {
@@ -63,4 +62,13 @@ void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
         WordNode* newNode = createNode(word);
     }
     fclose(dictFile);
+}
+
+void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
+    int i, j;
+    for (i = 0; i < (LENGTH_HASH); i++) {
+        for (j = 0; j < MAX_HASH_NUM; j++) {
+            deleteList(wordData[i][j]);
+        }
+    }
 }
