@@ -1,5 +1,6 @@
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "./wordhash.h"
 
 void toUpper(char* word) {
@@ -54,7 +55,8 @@ struct WordNode* createNode(char word[]) {
     return newNode;
 }
 
-void insertWord(struct WordNode** head, struct WordNode* newNode) {
+void insertWord(struct WordNode** head, char word[]) {
+    struct WordNode* newNode = createNode(word);
     if (*head == NULL) {
         newNode->next = *head;
         *head = newNode;
@@ -63,7 +65,7 @@ void insertWord(struct WordNode** head, struct WordNode* newNode) {
         struct WordNode* current = *head;
         while (strcmp(current->next->word, newNode->word) < 0 &&
                current->next != NULL) {
-            // printf("Scanning %s\n", current->word);
+            printf("Scanning %s\n", current->word);
             current = current->next;
         }
         newNode->next = current->next;
@@ -78,17 +80,17 @@ void printList(struct WordNode* head) {
         printf("%s\n", current->word);
         current = current->next;
     }
-    // printf("Leaving printList\n");
+    printf("Leaving printList\n");
 }
 
 void deleteList(struct WordNode* head) {
     struct WordNode* tempNode;
     while (tempNode != NULL) {
         tempNode = head->next;
-        // printf("Freeing %s\n", head->word);
+        printf("Freeing %s\n", head->word);
         free(head);
         head = tempNode;
     }
     free(tempNode);
-    // printf("Freeing %s\n", head->word);
+    printf("Freeing %s\n", head->word);
 }

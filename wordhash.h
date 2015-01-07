@@ -21,7 +21,7 @@ void sortString(char* word, char* sorted);
 
 struct WordNode* createNode(char word[]);
 
-void insertWord(struct WordNode** head, struct WordNode* newNode);
+void insertWord(struct WordNode** head, char word[]);
 
 void printList(struct WordNode* head);
 
