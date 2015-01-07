@@ -7,9 +7,11 @@
 
 void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
+void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
+
 int main(int argc, char const *argv[]) {
     WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM] = {{NULL}};
-    hashWords(wordData);
+    // hashWords(wordData);
     int i, j;
 
     // for (i = 0; i < (LENGTH_HASH); i++) {
@@ -40,7 +42,8 @@ int main(int argc, char const *argv[]) {
     //         printf("%d\n", test[i]);
     //     }
     // }
-    return 0;
+    deleteWordData(wordData);
+    exit(0);
 }
 
 void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
