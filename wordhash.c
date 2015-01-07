@@ -73,7 +73,6 @@ void insertWord(struct WordNode** head, char word[]) {
 }
 
 void printList(struct WordNode* head) {
-    printf("\n\n");
     struct WordNode* current;
     current = head;
     while (current != NULL) {
