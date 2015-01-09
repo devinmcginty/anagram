@@ -73,7 +73,6 @@ void makeAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
     int len, hash;
     len = hashLength(word);
     hash = genWordHash(word);
-    printf("%s %d %d\n", word, len, hash);
     printAnagrams(wordData[len][hash], word);
 }
 
