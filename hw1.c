@@ -4,10 +4,17 @@
 #include "./wordhash.h"
 
 #define DICTIONARY_FILE "./words"
+#define TRUE 1
+#define FALSE 0
 
 void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
 void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
+
+void makeAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                   char word[]);
+
+int isNumber(char str[]);
 
 int main(int argc, char const *argv[]) {
     if (argc < 2) {
@@ -16,7 +23,12 @@ int main(int argc, char const *argv[]) {
     }
     WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM] = {{NULL}};
     hashWords(wordData);
-
+    char word[MAX_WORD_LEN];
+    if (argc == 2) {
+        // printList(wordData[1][24]);
+        strcpy(word, argv[1]);
+        makeAnagrams(wordData, word);
+    }
     deleteWordData(wordData);
     exit(0);
 }
@@ -31,10 +43,11 @@ void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
         exit(1);
     }
     // Hash words
-    int len,
-        hash;
-    char word[MAX_WORD_LEN];
+    int len, hash;
+    char word[MAX_WORD_LEN],
+         *termPos;
     while(fgets(word, sizeof(word), dictFile) != NULL) {
+        if((termPos = strchr(word, '\n')) != NULL) { *termPos = '\0';}
         len = hashLength(word);
         hash = genWordHash(word);
         insertWord(&wordData[len][hash], word);
@@ -53,4 +66,26 @@ void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
             }
         }
     }
+}
+
+void makeAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                   char word[]) {
+    int len, hash;
+    len = hashLength(word);
+    hash = genWordHash(word);
+    printf("%s %d %d\n", word, len, hash);
+    printAnagrams(wordData[len][hash], word);
+}
+
+int isNumber(char str[]) {
+    int i,
+        len = strlen(str),
+        ret = TRUE;
+    for (i = 0; i < len; i++) {
+        if (!isdigit(str[i])) {
+            ret = FALSE;
+            break;
+        }
+    }
+    return ret;
 }

@@ -14,7 +14,9 @@ void toUpper(char* word) {
 }
 
 int hashLength(char* word) {
-    return (strlen(word) - (1 + MIN_WORD_LEN)) % LENGTH_HASH;
+    int len;
+    len = (strlen(word) - MIN_WORD_LEN) % LENGTH_HASH;
+    return len;
 }
 
 int genWordHash(char* word) {
@@ -69,6 +71,23 @@ void insertWord(struct WordNode** head, char word[]) {
         }
         newNode->next = current->next;
         current->next = newNode;
+    }
+}
+
+void printAnagrams(struct WordNode* head, char word[]) {
+    struct WordNode* current;
+    current = head;
+    char wordSorted[MAX_WORD_LEN],
+         currentSorted[MAX_WORD_LEN];
+    sortString(word, wordSorted);
+    int comparison;
+    while (current != NULL) {
+        sortString(current->word, currentSorted);
+        comparison = strcmp(currentSorted, wordSorted);
+        if (!comparison) {
+            printf("ANAGRAM %s\n", current->word);
+        }
+        current = current->next;
     }
 }
 

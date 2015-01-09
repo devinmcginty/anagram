@@ -25,6 +25,8 @@ void insertWord(struct WordNode** head, char word[]);
 
 void printList(struct WordNode* head);
 
+void printAnagrams(struct WordNode* head, char word[]);
+
 void deleteList(struct WordNode* head);
 
 #endif // WORDHASH_H
