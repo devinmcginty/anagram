@@ -25,9 +25,9 @@ int main(int argc, char const *argv[]) {
     hashWords(wordData);
     char word[MAX_WORD_LEN];
     if (argc == 2) {
-        // printList(wordData[1][24]);
-        strcpy(word, argv[1]);
-        makeAnagrams(wordData, word);
+        printList(wordData[1][24]);
+        // strcpy(word, argv[1]);
+        // makeAnagrams(wordData, word);
     }
     deleteWordData(wordData);
     exit(0);
