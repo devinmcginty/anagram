@@ -8,6 +8,7 @@
 
 typedef struct WordNode {
     char word[MAX_WORD_LEN];
+    char sorted[MAX_WORD_LEN];
     struct WordNode* next;
 } WordNode;
 
