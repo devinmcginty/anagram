@@ -29,8 +29,7 @@ int main(int argc, char const *argv[]) {
         int len, hash;
         len = hashLength(word);
         hash = genWordHash(word);
-        printList(wordData[len][hash]);
-        // makeAnagrams(wordData, word);
+        makeAnagrams(wordData, word);
     }
     deleteWordData(wordData);
     exit(0);
@@ -42,7 +41,9 @@ void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
     FILE* dictFile = fopen(DICTIONARY_FILE, fmode);
     if (dictFile == NULL) {
         fclose(dictFile);
-        fprintf(stderr, "word file %s not found.\n", DICTIONARY_FILE);
+        fprintf(stderr,
+                "dictionary file %s not found.\n",
+                DICTIONARY_FILE);
         exit(1);
     }
     // Hash words

@@ -62,7 +62,7 @@ struct WordNode* createNode(char word[]) {
         exit(1);
     }
     strcpy(newNode->word, word);
-    sortString(newNode)
+    sortString(word, newNode->sorted);
     newNode->next = NULL;
     return newNode;
 }
@@ -112,7 +112,7 @@ void printAnagrams(struct WordNode* head, char word[]) {
         sortString(current->word, currentSorted);
         comparison = strcmp(currentSorted, wordSorted);
         if (!comparison) {
-            printf("ANAGRAM %s\n", current->word);
+            printf("%s\n", current->word);
         }
         current = current->next;
     }
