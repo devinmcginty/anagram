@@ -62,38 +62,27 @@ struct WordNode* createNode(char word[]) {
         exit(1);
     }
     strcpy(newNode->word, word);
-    sortString(word, newNode->sorted);
     newNode->next = NULL;
     return newNode;
 }
 
 void insertWord(struct WordNode** head, char word[]) {
     struct WordNode* newNode = createNode(word);
-    char newSorted[MAX_WORD_LEN],
-         currentSorted[MAX_WORD_LEN],
-         currentWord[MAX_WORD_LEN];
-    sortString(word, newSorted);
+    char currentWord[MAX_WORD_LEN];
     if (*head == NULL) {
         newNode->next = *head;
         *head = newNode;
     }
     else {
-        sortString((*head)->word, currentSorted);
         if (strcmp((*head)->word, word) > 0) {
             newNode->next = *head;
             *head = newNode;
         }
         else {
             struct WordNode* current = *head;
-            strcpy(currentSorted, "");
-            if (current->next->word) {
-                sortString(current->next->word, currentSorted);
-            }
             while (current->next != NULL &&
-                   strcmp(currentSorted, newSorted) <= 0 &&
                    strcmp(current->next->word, word) <= 0) {
                 current = current->next;
-                sortString(current->next->word, currentSorted);
             }
             newNode->next = current->next;
             current->next = newNode;
