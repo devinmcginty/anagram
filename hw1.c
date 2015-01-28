@@ -107,7 +107,7 @@ int isNumber(char str[]) {
         len = strlen(str),
         ret = TRUE;
     for (i = 0; i < len; i++) {
-        if (!isdigit(str[i])) {
+        if ('0' > str[i] || '9' < str[i]) {
             ret = FALSE;
             break;
         }
