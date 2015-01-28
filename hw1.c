@@ -11,25 +11,44 @@ void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
 void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
-void makeAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
-                   char word[]);
+void findAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                  char word[]);
+
+void testFunction();
 
 int isNumber(char str[]);
 
 int main(int argc, char const *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "No input arguments given\n");
+    const int MINIMUM_ARGUMENTS = 2;
+    const char* CROSSWORD_MODE = "-f";
+    const char* INPUT_ERROR = "Insufficient input arguments given\n";
+    if (argc < MINIMUM_ARGUMENTS) {
+        fprintf(stderr, "%s\n", INPUT_ERROR);
         exit(1);
     }
     WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM] = {{NULL}};
     hashWords(wordData);
     char word[MAX_WORD_LEN];
-    if (argc == 2) {
-        strcpy(word, argv[1]);
-        int len, hash;
-        len = hashLength(word);
-        hash = genWordHash(word);
-        makeAnagrams(wordData, word);
+    int i,
+        crossword = FALSE;
+    for (i = 1; i < argc; i++) {
+        if (crossword) {
+            crossword = FALSE;
+            strcpy(word, argv[i]);
+            printf("\n");
+            // testFunction();
+        }
+        else if (strcmp(argv[i], CROSSWORD_MODE) == 0) {
+            crossword = TRUE;
+        }
+        else {
+            strcpy(word, argv[i]);
+            findAnagrams(wordData, word);
+            printf("\n");
+        }
+    }
+    if (crossword) {
+        fprintf(stderr, "%s\n", INPUT_ERROR);
     }
     deleteWordData(wordData);
     exit(0);
@@ -65,20 +84,23 @@ void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]) {
         for (j = 0; j < MAX_HASH_NUM; j++) {
             if (wordData[i][j] != NULL) {
                 deleteList(wordData[i][j]);
-            } else {
+            }
+            else {
                 free(wordData[i][j]);
             }
         }
     }
 }
 
-void makeAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
-                   char word[]) {
+void findAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                  char word[]) {
     int len, hash;
     len = hashLength(word);
     hash = genWordHash(word);
     printAnagrams(wordData[len][hash], word);
 }
+
+void testFunction();
 
 int isNumber(char str[]) {
     int i,
