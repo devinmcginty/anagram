@@ -3,20 +3,27 @@
 #include <string.h>
 #include "./wordhash.h"
 
+// Dictionary file to read in
 #define DICTIONARY_FILE "./words"
+// Boolean constants
 #define TRUE 1
 #define FALSE 0
 
+// Dynamically creates collection of hashed words
 void hashWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
+// Clears collection of linked lists from memory.
 void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 
+// Find and print all anagrams of a word
 void findAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
                   char word[]);
 
+// Find and print all words given certain fixed characters
 void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
                    char word[]);
 
+// Returns true if argument is a capital letter
 int isLetter(char c);
 
 int main(int argc, char const *argv[]) {
@@ -34,15 +41,18 @@ int main(int argc, char const *argv[]) {
         crossword = FALSE;
     for (i = 1; i < argc; i++) {
         if (crossword) {
+            // Crossword mode
             crossword = FALSE;
             strcpy(word, argv[i]);
             findFixedWords(wordData, word);
             printf("\n");
         }
         else if (strcmp(argv[i], CROSSWORD_flag) == 0) {
+            // Activate crossword mode for next word
             crossword = TRUE;
         }
         else {
+            // Anagram mode
             strcpy(word, argv[i]);
             findAnagrams(wordData, word);
             printf("\n");
@@ -108,7 +118,7 @@ void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
     lenhash = hashLength(word);
     length = strlen(word);
     WordNode* position = NULL;
-    WordNode* matchList = NULL;
+    WordNode* matchList = NULL; // I am using a linked list to sort the output
     for (i = 0; i < MAX_HASH_NUM; i++) {
         for (position = wordData[lenhash][i];
              position != NULL;
