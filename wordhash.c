@@ -113,7 +113,7 @@ void printList(struct WordNode* head) {
     while (current != NULL) {
         char sorted[MAX_WORD_LEN];
         sortString(current->word, sorted);
-        printf("%s %s\n", current->word, sorted);
+        printf("%s\n", current->word);
         current = current->next;
     }
 }

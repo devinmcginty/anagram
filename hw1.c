@@ -108,6 +108,7 @@ void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
     lenhash = hashLength(word);
     length = strlen(word);
     WordNode* position = NULL;
+    WordNode* matchList = NULL;
     for (i = 0; i < MAX_HASH_NUM; i++) {
         for (position = wordData[lenhash][i];
              position != NULL;
@@ -126,10 +127,11 @@ void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
                 }
             }
             if (match) {
-                printf("%s\n", position->word);
+                insertWord(&matchList, position->word);
             }
         }
     }
+    printList(matchList);
 }
 
 int isLetter(char c) {
