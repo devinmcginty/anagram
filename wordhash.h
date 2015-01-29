@@ -1,3 +1,7 @@
+// wordhash.h
+//
+// Devin McGinty
+
 #ifndef WORDHASH_H
 #define WORDHASH_H
 
