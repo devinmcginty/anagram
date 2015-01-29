@@ -14,13 +14,14 @@ void deleteWordData(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM]);
 void findAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
                   char word[]);
 
-void testFunction();
+void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                   char word[]);
 
-int isNumber(char str[]);
+int isLetter(char c);
 
 int main(int argc, char const *argv[]) {
     const int MINIMUM_ARGUMENTS = 2;
-    const char* CROSSWORD_MODE = "-f";
+    const char* CROSSWORD_flag = "-f";
     const char* INPUT_ERROR = "Insufficient input arguments given\n";
     if (argc < MINIMUM_ARGUMENTS) {
         fprintf(stderr, "%s\n", INPUT_ERROR);
@@ -35,10 +36,10 @@ int main(int argc, char const *argv[]) {
         if (crossword) {
             crossword = FALSE;
             strcpy(word, argv[i]);
+            findFixedWords(wordData, word);
             printf("\n");
-            // testFunction();
         }
-        else if (strcmp(argv[i], CROSSWORD_MODE) == 0) {
+        else if (strcmp(argv[i], CROSSWORD_flag) == 0) {
             crossword = TRUE;
         }
         else {
@@ -100,17 +101,37 @@ void findAnagrams(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
     printAnagrams(wordData[len][hash], word);
 }
 
-void testFunction();
-
-int isNumber(char str[]) {
-    int i,
-        len = strlen(str),
-        ret = TRUE;
-    for (i = 0; i < len; i++) {
-        if ('0' > str[i] || '9' < str[i]) {
-            ret = FALSE;
-            break;
+void findFixedWords(WordNode* wordData[LENGTH_HASH][MAX_HASH_NUM],
+                   char word[]) {
+    toUpper(word);
+    int lenhash, i, c, length, match;
+    lenhash = hashLength(word);
+    length = strlen(word);
+    WordNode* position = NULL;
+    for (i = 0; i < MAX_HASH_NUM; i++) {
+        for (position = wordData[lenhash][i];
+             position != NULL;
+             position = position->next) {
+            match = TRUE;
+            if (length != strlen(position->word)) {
+                continue;
+            }
+            for (c = 0; c < length; c++) {
+                if (!isLetter(word[c])) {
+                    continue;
+                }
+                else if (word[c] != position->word[c]) {
+                    match = FALSE;
+                    break;
+                }
+            }
+            if (match) {
+                printf("%s\n", position->word);
+            }
         }
     }
-    return ret;
+}
+
+int isLetter(char c) {
+    return ('A' <= c && 'Z' >= c);
 }
